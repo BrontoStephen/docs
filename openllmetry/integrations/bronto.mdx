@@ -1,0 +1,27 @@
+---
+title: "LLM Observability with Bronto and OpenLLMetry"
+sidebarTitle: "Bronto"
+---
+
+<Frame>
+  <img src="/img/integrations/bronto.png" />
+</Frame>
+
+[Bronto](https://www.bronto.io) is an intelligent data platform for observability, built on BrontoDB — a polymorphic database designed to handle high-cardinality logs, traces, and metrics efficiently. Because you don't have to sample workloads or shorten retention to control cost, you can send full-fidelity LLM traces and keep months of them immediately queryable with sub-second search — no rehydration step before a root cause analysis.
+
+OpenLLMetry spans arrive as [OpenTelemetry GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/), so attributes such as `gen_ai.provider.name`, `gen_ai.request.model`, and `gen_ai.usage.input_tokens` / `gen_ai.usage.output_tokens` are searchable and aggregatable on arrival — group token usage by model, chart cost trends, or inspect prompt and completion content on the span. Bronto's MCP server exposes the same search and analysis as tools, so agents can investigate your LLM traces directly.
+
+<Frame>
+  <img src="/img/integrations/bronto-llm-usage.png" />
+</Frame>
+
+Route your traces to Bronto's OTLP endpoint:
+
+```bash
+TRACELOOP_BASE_URL="https://ingestion.eu.bronto.io"
+TRACELOOP_HEADERS="x-bronto-api-key=<YOUR_API_KEY>"
+```
+
+Use `https://ingestion.us.bronto.io` for the US region. Do not append `/v1/traces` — OpenLLMetry adds the signal path automatically.
+
+For the full setup, including the OTel Collector path and the complete attribute reference, see the [Bronto OpenLLMetry documentation](https://docs.bronto.io/integrations/openllmetry).
